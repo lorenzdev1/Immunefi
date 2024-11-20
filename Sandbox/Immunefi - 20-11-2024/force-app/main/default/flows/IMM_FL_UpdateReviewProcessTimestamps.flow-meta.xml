@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <decisions>
+        <name>IMM_DC_LegalReview</name>
+        <label>Legal Review</label>
+        <locationX>965</locationX>
+        <locationY>455</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>IMM_OC_LegalReview</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.IMM_PL_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Legal Review</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>IMM_UP_LegalReviewDt</targetReference>
+            </connector>
+            <label>Legal Review</label>
+        </rules>
+        <rules>
+            <name>IMM_OC_BusinessReview</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.IMM_PL_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Business Review</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>IMM_UP_UpdateBusinessReview</targetReference>
+            </connector>
+            <label>Business Review</label>
+        </rules>
+        <rules>
+            <name>IMM_OC_LegalExternal</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.IMM_PL_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Legal (External)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>IMM_UP_LegalExternal</targetReference>
+            </connector>
+            <label>Legal (External)</label>
+        </rules>
+        <rules>
+            <name>IMM_OC_Complete</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.IMM_PL_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Complete</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>IMM_UP_Complete</targetReference>
+            </connector>
+            <label>Complete</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>IMM_DC_ProcessReviewStatus</name>
+        <label>Process Review Status</label>
+        <locationX>566</locationX>
+        <locationY>455</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>IMM_OC_BBPDraftCreated</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.IMM_PL_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>BBP Draft Created</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>IMM_UP_BBPDraftCreated</targetReference>
+            </connector>
+            <label>BBP Draft Created</label>
+        </rules>
+        <rules>
+            <name>IMM_OC_InitialTechReview</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.IMM_PL_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Initial Tech Review</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>IMM_UP_InitialTechReview</targetReference>
+            </connector>
+            <label>Initial Tech Review</label>
+        </rules>
+        <rules>
+            <name>IMM_OC_InitialTechReviewComplete</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.IMM_PL_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Initial Tech Review Complete</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>IMM_UP_InitialTechReviewComplete</targetReference>
+            </connector>
+            <label>Initial Tech Review Complete</label>
+        </rules>
+        <rules>
+            <name>IMM_OC_ApprovedForLaunch</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.IMM_PL_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Approved for Launch</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>IMM_UP_ApprovedForLaunch</targetReference>
+            </connector>
+            <label>Approved for Launch</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Record_Type_Check</name>
+        <label>Record Type Check</label>
+        <locationX>749</locationX>
+        <locationY>271</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>IMM_OC_TechnicalReviewRT</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Technical Review</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>IMM_DC_ProcessReviewStatus</targetReference>
+            </connector>
+            <label>Technical Review</label>
+        </rules>
+        <rules>
+            <name>IMM_OC_LegalReviewRT</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Legal Review</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>IMM_DC_LegalReview</targetReference>
+            </connector>
+            <label>Legal Review</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>IMM_FL_FF_Now</name>
+        <dataType>DateTime</dataType>
+        <expression>NOW()</expression>
+    </formulas>
+    <interviewLabel>Update Time Stamps for Review Processes {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Immunefi: Update Time Stamps for Review Processes</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>IMM_UP_ApprovedForLaunch</name>
+        <label>Update Approved For Launch</label>
+        <locationX>569</locationX>
+        <locationY>726</locationY>
+        <inputAssignments>
+            <field>IMM_DT_ApprovedForLaunch__c</field>
+            <value>
+                <elementReference>IMM_FL_FF_Now</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>IMM_UP_BBPDraftCreated</name>
+        <label>Update BBP Draft Created</label>
+        <locationX>284</locationX>
+        <locationY>370</locationY>
+        <inputAssignments>
+            <field>IMM_DT_BBPDraftCreated__c</field>
+            <value>
+                <elementReference>IMM_FL_FF_Now</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>IMM_UP_Complete</name>
+        <label>Complete</label>
+        <locationX>976</locationX>
+        <locationY>744</locationY>
+        <inputAssignments>
+            <field>IMM_DT_Complete__c</field>
+            <value>
+                <elementReference>IMM_FL_FF_Now</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>IMM_UP_InitialTechReview</name>
+        <label>Update Initial Tech Review</label>
+        <locationX>272</locationX>
+        <locationY>482</locationY>
+        <inputAssignments>
+            <field>IMM_DT_DraftSubmittedToTriage__c</field>
+            <value>
+                <elementReference>IMM_FL_FF_Now</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>IMM_UP_InitialTechReviewComplete</name>
+        <label>Update Initial Tech Review Complete</label>
+        <locationX>265</locationX>
+        <locationY>609</locationY>
+        <inputAssignments>
+            <field>IMM_DT_InitialTechReviewComplete__c</field>
+            <value>
+                <elementReference>IMM_FL_FF_Now</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>IMM_UP_LegalExternal</name>
+        <label>Update LegalExternal</label>
+        <locationX>1256</locationX>
+        <locationY>645</locationY>
+        <inputAssignments>
+            <field>IMM_DT_Legal__c</field>
+            <value>
+                <elementReference>IMM_FL_FF_Now</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>IMM_UP_LegalReviewDt</name>
+        <label>Update Legal Review</label>
+        <locationX>1232</locationX>
+        <locationY>319</locationY>
+        <inputAssignments>
+            <field>IMM_DT_LegalReview__c</field>
+            <value>
+                <elementReference>IMM_FL_FF_Now</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>IMM_UP_UpdateBusinessReview</name>
+        <label>Update Business Review</label>
+        <locationX>1248</locationX>
+        <locationY>463</locationY>
+        <inputAssignments>
+            <field>IMM_DT_BusinessReview__c</field>
+            <value>
+                <elementReference>IMM_FL_FF_Now</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>637</locationX>
+        <locationY>4</locationY>
+        <connector>
+            <targetReference>Record_Type_Check</targetReference>
+        </connector>
+        <object>IMM_CO_ReviewProcess__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

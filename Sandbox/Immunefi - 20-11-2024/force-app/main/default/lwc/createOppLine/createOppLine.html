@@ -1,0 +1,61 @@
+<!--Created Date: March 29, 2024-->
+<template>
+    <div class="header">
+        <h1>Subscription Setup</h1>
+    </div>
+    <lightning-card title="Please populate the following fields: ">
+        <lightning-spinner if:true={isLoading} variant="brand"></lightning-spinner>
+        <div class="slds-p-around_medium">
+            <template if:true={showCorePlan}>
+                <lightning-combobox
+                    if:true={showCorePlan}
+                    name="corePlanPicklist"
+                    label="Subscription Core Plan"
+                    value={corePlanSelected}
+                    options={corePlanOptions}
+                    onchange={corePlanChanged}>
+                </lightning-combobox>
+                <template if:true={showFormattedProductDescription}>
+                    <br/>
+                    <label style="font-family: Arial; color: rgb(0, 0, 0);font-weight: var(--lwc-fontWeightBold, 700);" >What’s included in the plan?</label>
+                    <lightning-formatted-rich-text
+                        value={formattedProductDescription}
+                    ></lightning-formatted-rich-text>
+                </template>
+                <br/>
+            </template>
+            <lightning-combobox
+                name="paymentStructurePicklist"
+                label="Payment Structure"
+                value={paymentStructureSelected}
+                options={paymentStructureOptions}
+                onchange={paymentStructureChanged}>
+            </lightning-combobox>
+            <br/>
+            <lightning-dual-listbox
+                if:true={showAddOn}
+                label="Select Add-Ons"
+                source-label="Available"
+                selected-label="Selected"
+                options={addOnOptions}
+                value={addOnSelected}
+                onchange={addOnChanged}>
+            </lightning-dual-listbox>
+            <br/>
+            <lightning-input
+                if:true={showPrizePool}
+                type="number"
+                label="Prize Pool"
+                value={prizePoolValue}
+                onchange={prizePoolChanged}>
+        </lightning-input>
+        </div>
+        <footer class="slds-modal__footer">
+            <div class="footer-buttons">
+                <lightning-button label="Cancel" onclick={handleCancel} class="slds-m-left_x-small" variant="neutral"></lightning-button>
+                <lightning-button label="Submit" onclick={handleSubmit} class="slds-m-left_x-small" variant="brand"></lightning-button>
+                <!--<lightning-button variant="brand" label="Call Parent" title="Call Parent" onclick={callParent} class="slds-m-left_x-small"></lightning-button>-->
+            </div>
+        </footer>
+    </lightning-card>
+</template>

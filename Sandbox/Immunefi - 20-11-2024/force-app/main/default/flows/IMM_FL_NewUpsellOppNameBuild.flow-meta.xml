@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <assignments>
+        <name>Assign_Name</name>
+        <label>Assign Name</label>
+        <locationX>50</locationX>
+        <locationY>503</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>BuildName</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>Check_Record_type</name>
+        <label>Check Record type</label>
+        <locationX>182</locationX>
+        <locationY>287</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>is_Upsell</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>IMM_RT_BugBountyUpsell</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Latest_Upsell_Record</targetReference>
+            </connector>
+            <label>is Upsell</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>BuildName</name>
+        <dataType>String</dataType>
+        <expression>{!$Record.IMM_LF_BugBountyProgram__r.Name} +&apos; Upsell &apos; + TEXT({!PreciousUpsellNumber})</expression>
+    </formulas>
+    <formulas>
+        <name>PreciousUpsellNumber</name>
+        <dataType>Number</dataType>
+        <expression>IF(FIND(&apos; &apos;, TRIM({!PreviousUpsellName})) != 0, 
+	IF( ISNUMBER(RIGHT(TRIM({!PreviousUpsellName}), FIND(&apos; &apos;, REVERSE(TRIM({!PreviousUpsellName})))-1)), Value(RIGHT(TRIM({!PreviousUpsellName}), FIND(&apos; &apos;, REVERSE(TRIM({!PreviousUpsellName})))-1)) +1, 1),
+	 1)</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>Immunefi:New Upsell Opp Name Build {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Immunefi: New Upsell Opp Name Build</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Latest_Upsell_Record</name>
+        <label>Get Latest Upsell Record</label>
+        <locationX>50</locationX>
+        <locationY>395</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Name</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>Upsell</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>IMM_LF_BugBountyProgram__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.IMM_LF_BugBountyProgram__c</elementReference>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <outputAssignments>
+            <assignToReference>PreviousUpsellName</assignToReference>
+            <field>Name</field>
+        </outputAssignments>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+    </recordLookups>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_Record_type</targetReference>
+        </connector>
+        <object>Opportunity</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>PreviousUpsellName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

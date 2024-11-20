@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Notify Finance Public Group when an MT Opportunity is Churned</description>
+        <name>MM_FL_Notify_Finance_Team_MTOpportunity_Churned</name>
+        <label>Immunefi: Notify Finance Team When on MT Opportunity is Churned</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
+        <actionName>Opportunity.IMM_EMA_NotifyFinanceTeamMTOpportunityChurned</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Opportunity.IMM_EMA_NotifyFinanceTeamMTOpportunityChurned</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>59.0</apiVersion>
+    <decisions>
+        <name>IMM_DC_IsManagedTriage</name>
+        <label>Is Managed Triage</label>
+        <locationX>182</locationX>
+        <locationY>431</locationY>
+        <defaultConnectorLabel>Not Managed Triage</defaultConnectorLabel>
+        <rules>
+            <name>IMM_OC_IsManagedTriage</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordTypeId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>IMM_RC_ManagedTriage.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MM_FL_Notify_Finance_Team_MTOpportunity_Churned</targetReference>
+            </connector>
+            <label>Is Managed Triage</label>
+        </rules>
+    </decisions>
+    <description>Notify Finance Public Group when an MT Opportunity is Churned</description>
+    <environments>Default</environments>
+    <interviewLabel>Immunifi: Notify Finance Team When on MT Opportunity is Churned {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Immunefi: Notify Finance Team When on MT Opportunity is Churned</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>IMM_SF_GetManagedTriageRecordType</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>StageName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Closed Lost</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Loss_Reason__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Churned</stringValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>IMM_SF_GetManagedTriageRecordType</name>
+        <label>Get Managed Triage Record Type</label>
+        <locationX>182</locationX>
+        <locationY>323</locationY>
+        <connector>
+            <targetReference>IMM_DC_IsManagedTriage</targetReference>
+        </connector>
+        <flowName>IMM_FL_GetRecordType</flowName>
+        <inputAssignments>
+            <name>IMM_VR_DeveloperName</name>
+            <value>
+                <stringValue>IMM_RT_ManagedTriage</stringValue>
+            </value>
+        </inputAssignments>
+        <outputAssignments>
+            <assignToReference>IMM_RC_ManagedTriage</assignToReference>
+            <name>IMM_RC_RecordType</name>
+        </outputAssignments>
+    </subflows>
+    <variables>
+        <name>IMM_RC_ManagedTriage</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>RecordType</objectType>
+    </variables>
+</Flow>

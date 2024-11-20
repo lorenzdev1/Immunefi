@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <decisions>
+        <name>IMM_OC_Check_isClosed</name>
+        <label>Check isClosed</label>
+        <locationX>314</locationX>
+        <locationY>287</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>IMM_OC_isClosedLost</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed Lost</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>IMM_UR_Update_Time_Elapsed_Since_Close</targetReference>
+            </connector>
+            <label>isClosedLost?</label>
+        </rules>
+        <rules>
+            <name>IMM_OC_is_Stage_Onboarding_Call_Booked</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Onboarding Call Booked</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>IMM_UR_Update_TimeStamp_on_Onboarding_Call_Booked_Tracker</targetReference>
+            </connector>
+            <label>is Stage Onboarding Call Booked?</label>
+        </rules>
+    </decisions>
+    <description>will update the field designed to hold the timestamp for when an oppty is closed or Oppty stage changed to Onboarding Call Booked</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Grabs the current time stamp</description>
+        <name>IMM_FF_Now</name>
+        <dataType>DateTime</dataType>
+        <expression>NOW()</expression>
+    </formulas>
+    <interviewLabel>Immunefi: Update Time Stamp for Opportunities {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Immunefi: Update Time Stamp for Opportunities</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <description>Adds a timestamp to record when an opportunity is Closed Lost</description>
+        <name>IMM_UR_Update_Time_Elapsed_Since_Close</name>
+        <label>Update Time Elapsed Since Close</label>
+        <locationX>50</locationX>
+        <locationY>395</locationY>
+        <inputAssignments>
+            <field>IMM_DT_ClosedLostTimestamp__c</field>
+            <value>
+                <elementReference>IMM_FF_Now</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>IMM_UR_Update_TimeStamp_on_Onboarding_Call_Booked_Tracker</name>
+        <label>Update TimeStamp on Onboarding Call Booked Tracker</label>
+        <locationX>314</locationX>
+        <locationY>395</locationY>
+        <inputAssignments>
+            <field>IMM_DT_OnboardingCallBookedTimestamp__c</field>
+            <value>
+                <elementReference>IMM_FF_Now</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>IMM_OC_Check_isClosed</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>IsClosed</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>StageName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Onboarding Call Booked</stringValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
