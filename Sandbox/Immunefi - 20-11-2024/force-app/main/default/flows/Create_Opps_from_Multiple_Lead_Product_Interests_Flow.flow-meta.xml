@@ -1,0 +1,788 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <assignments>
+        <name>Assign_Boosty_RT</name>
+        <label>Assign Boosty RT</label>
+        <locationX>50</locationX>
+        <locationY>566</locationY>
+        <assignmentItems>
+            <assignToReference>var_RtDevNamesList</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Boost</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Product_Interest_Subscription_Check</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_IMM_RT_ManagedTriage_RT</name>
+        <label>Assign IMM_RT_ManagedTriage RT</label>
+        <locationX>50</locationX>
+        <locationY>1166</locationY>
+        <assignmentItems>
+            <assignToReference>var_RtDevNamesList</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>IMM_RT_ManagedTriage</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>PI_Value_Loop</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Subscription_RT</name>
+        <label>Assign Subscription RT</label>
+        <locationX>50</locationX>
+        <locationY>866</locationY>
+        <assignmentItems>
+            <assignToReference>var_RtDevNamesList</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Subscription</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Product_Interest_Managed_Triage</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>First_Product_Interest_Assignment</name>
+        <label>First Product Interest Assignment</label>
+        <locationX>270</locationX>
+        <locationY>1682</locationY>
+        <assignmentItems>
+            <assignToReference>var_RtId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Opp_RecordType.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Ctr</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>PI_Value_Loop</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Lead_Estimated_Close_Date_Assignment</name>
+        <label>Lead Estimated Close Date Assignment</label>
+        <locationX>974</locationX>
+        <locationY>1898</locationY>
+        <assignmentItems>
+            <assignToReference>var_CloseDate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Lead.IMM_DA_EstimatedCloseDate__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Opportunity_Assignment</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Opportunity_Assignment</name>
+        <label>Opportunity Assignment</label>
+        <locationX>842</locationX>
+        <locationY>2090</locationY>
+        <assignmentItems>
+            <assignToReference>var_Opp.Converted_Lead_ID__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Lead.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Opp.IMM_PL_ClientPersona__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Lead.IMM_PL_ClientPersona__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Opp.IMM_DA_EstimatedCloseDate__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Lead.IMM_DA_EstimatedCloseDate__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Opp.IMM_PL_EstimatedMarketCap__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Lead.IMM_PL_EstimatedMarketCap__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Opp.IMM_URL_GoogleDriveFolderLink__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Lead.IMM_URL_GoogleDriveFolderLink__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Opp.IMM_MPL_ProductOpportunityType__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Lead.IMM_MPL_ProductOpportunityType__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Opp.IMM_PL_ProjectType__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>var_Record.IMM_PL_ProjectType__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Opp.IMM_RIT_SummaryOfAENotes__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Lead.IMM_RIT_SummaryOfAENotes__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Opp.IMM_TF_Tags__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Lead.IMM_TF_Tags__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Opp.IMM_URL_TelegramChatGroupLink__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Lead.IMM_URL_TelegramChatGroupLink__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Opp.RecordTypeId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Opp_RecordType.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Opp.Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Lead.Name</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Opp.CloseDate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>var_CloseDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Opp.StageName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Proposal</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Opp.AccountId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>var_Record.AccountId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Opp.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>var_Record.LeadSource</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Opp.IMM_TF_LeadRating__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Lead.Rating</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Opportunity_List_Assignment</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Opportunity_List_Assignment</name>
+        <label>Opportunity List Assignment</label>
+        <locationX>842</locationX>
+        <locationY>2198</locationY>
+        <assignmentItems>
+            <assignToReference>var_OppList</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>var_Opp</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>PI_Value_Loop</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Tomorrow_Close_Date_Assignment</name>
+        <label>Tomorrow Close Date Assignment</label>
+        <locationX>710</locationX>
+        <locationY>1898</locationY>
+        <assignmentItems>
+            <assignToReference>var_CloseDate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>FormulaCloseDateTom</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Opportunity_Assignment</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Converted_from_Lead</name>
+        <label>Converted from Lead</label>
+        <locationX>690</locationX>
+        <locationY>134</locationY>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Converted_from_Lead</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>var_Record.Is_Converted_from_Lead__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Lead</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Ctr_is_1</name>
+        <label>Ctr is 1</label>
+        <locationX>479</locationX>
+        <locationY>1574</locationY>
+        <defaultConnector>
+            <targetReference>RT_was_set_to_Triggering_Record</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>var_Ctr</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>First_Product_Interest_Assignment</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Lead_Estimated_Close_Date_Blank</name>
+        <label>Is Lead Estimated Close Date Blank?</label>
+        <locationX>842</locationX>
+        <locationY>1790</locationY>
+        <defaultConnector>
+            <targetReference>Lead_Estimated_Close_Date_Assignment</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Is_Lead_Estimated_Close_Date_Blank</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>Lead.IMM_DA_EstimatedCloseDate__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Lead.IMM_DA_EstimatedCloseDate__c</leftValueReference>
+                <operator>EqualTo</operator>
+            </conditions>
+            <connector>
+                <targetReference>Tomorrow_Close_Date_Assignment</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Lead_has_Product_Interest_selected</name>
+        <label>Lead has Product Interest selected</label>
+        <locationX>433</locationX>
+        <locationY>350</locationY>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Lead_has_Product_Interest_selected</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Lead.IMM_MPL_ProductInterest__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Product_Interest_Boost_Check</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Opportunity_List_not_NULL</name>
+        <label>Opportunity List not NULL</label>
+        <locationX>182</locationX>
+        <locationY>2558</locationY>
+        <defaultConnector>
+            <targetReference>Update_Triggering_Opp</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Opportunity_List_not_NULL</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>var_OppList</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Opps</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Product_Interest_Boost_Check</name>
+        <label>Product Interest - Boost Check</label>
+        <locationX>182</locationX>
+        <locationY>458</locationY>
+        <defaultConnector>
+            <targetReference>Product_Interest_Subscription_Check</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Product_Interest_Boost_Check</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FormulaBoost</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Boosty_RT</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Product_Interest_Managed_Triage</name>
+        <label>Product Interest - Managed Triage</label>
+        <locationX>182</locationX>
+        <locationY>1058</locationY>
+        <defaultConnector>
+            <targetReference>PI_Value_Loop</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Product_Interest_Managed_Triage</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FormulaManagedTriage</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_IMM_RT_ManagedTriage_RT</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Product_Interest_Subscription_Check</name>
+        <label>Product Interest - Subscription Check</label>
+        <locationX>182</locationX>
+        <locationY>758</locationY>
+        <defaultConnector>
+            <targetReference>Product_Interest_Managed_Triage</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Product_Interest_Subscription_Check</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FormulaSubscription</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Subscription_RT</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>RT_was_set_to_Triggering_Record</name>
+        <label>RT was set to Triggering Record?</label>
+        <locationX>688</locationX>
+        <locationY>1682</locationY>
+        <defaultConnector>
+            <targetReference>Is_Lead_Estimated_Close_Date_Blank</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_RT_was_set_to_Triggering_Record</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>var_Record.RecordTypeId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Opp_RecordType.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>PI_Value_Loop</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>FormulaBoost</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+	AND(
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Boost&apos;), 
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Bug Bounty Program&apos;)), 
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Managed Triage&apos;)), 
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Vault&apos;))
+	),
+	AND(
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Boost&apos;), 
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Vault&apos;), 
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Bug Bounty Program&apos;)), 
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Managed Triage&apos;))
+	),
+	AND(
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Boost&apos;), 
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Managed Triage&apos;), 
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Bug Bounty Program&apos;)), 
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Vault&apos;))
+	)
+)</expression>
+    </formulas>
+    <formulas>
+        <name>FormulaCloseDateTom</name>
+        <dataType>Date</dataType>
+        <expression>{!$Flow.CurrentDate} + 1</expression>
+    </formulas>
+    <formulas>
+        <name>FormulaManagedTriage</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+	AND(
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Managed Triage&apos;),
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Bug Bounty Program&apos;)), 
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Boost&apos;)), 
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Vault&apos;))
+	),
+	AND(
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Managed Triage&apos;), 
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Vault&apos;),
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Bug Bounty Program&apos;)), 
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Boost&apos;)) 
+	),
+	AND(
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Managed Triage&apos;), 
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Boost&apos;),
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Bug Bounty Program&apos;)), 
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Vault&apos;)) 
+	)
+)</expression>
+    </formulas>
+    <formulas>
+        <name>FormulaSubscription</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+	AND(
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Bug Bounty Program&apos;), 
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Managed Triage&apos;),
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Boost&apos;)), 
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Vault&apos;))
+	),
+	AND(
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Bug Bounty Program&apos;), 
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Boost&apos;),
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Managed Triage&apos;)), 
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Vault&apos;))
+	),
+	AND(
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Bug Bounty Program&apos;), 
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Vault&apos;),
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Managed Triage&apos;)), 
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Boost&apos;))
+	),
+	AND(
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Bug Bounty Program&apos;), 
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Managed Triage&apos;), 
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Boost&apos;),
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Vault&apos;))
+	),
+	AND(
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Bug Bounty Program&apos;), 
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Managed Triage&apos;),
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Vault&apos;),
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Boost&apos;))
+	),
+	AND(
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Bug Bounty Program&apos;), 
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Managed Triage&apos;), 
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Boost&apos;), 
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Vault&apos;)
+	),
+	AND(
+		INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Bug Bounty Program&apos;),
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Managed Triage&apos;)), 
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Boost&apos;)), 
+		NOT(INCLUDES({!Lead.IMM_MPL_ProductInterest__c}, &apos;Vault&apos;))
+	)
+)</expression>
+    </formulas>
+    <interviewLabel>Create Opps from Multiple Lead Product Interests Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
+    <label>Create Opps from Multiple Lead Product Interests Flow</label>
+    <loops>
+        <name>PI_Value_Loop</name>
+        <label>PI Value Loop</label>
+        <locationX>182</locationX>
+        <locationY>1358</locationY>
+        <collectionReference>var_RtDevNamesList</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Opp_RecordType</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Opportunity_List_not_NULL</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Opps</name>
+        <label>Create Opps</label>
+        <locationX>50</locationX>
+        <locationY>2666</locationY>
+        <connector>
+            <targetReference>Update_Triggering_Opp</targetReference>
+        </connector>
+        <inputReference>var_OppList</inputReference>
+    </recordCreates>
+    <recordLookups>
+        <name>Lead</name>
+        <label>Lead</label>
+        <locationX>433</locationX>
+        <locationY>242</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Lead_has_Product_Interest_selected</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>var_Record.Converted_Lead_ID__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Lead</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Opp_RecordType</name>
+        <label>Opp RecordType</label>
+        <locationX>479</locationX>
+        <locationY>1466</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Ctr_is_1</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>SobjectType</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Opportunity</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>PI_Value_Loop</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Triggering_Opp</name>
+        <label>Update Triggering Opp</label>
+        <locationX>182</locationX>
+        <locationY>2858</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>var_Record.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>CloseDate</field>
+            <value>
+                <elementReference>var_CloseDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>var_RtId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <start>
+        <locationX>564</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Converted_from_Lead</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>var_CloseDate</name>
+        <dataType>Date</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <elementReference>FormulaCloseDateTom</elementReference>
+        </value>
+    </variables>
+    <variables>
+        <name>var_Ctr</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>1.0</numberValue>
+        </value>
+    </variables>
+    <variables>
+        <name>var_Opp</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
+    <variables>
+        <name>var_OppList</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
+    <variables>
+        <name>var_PiCount</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+    <variables>
+        <name>var_PriorRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
+    <variables>
+        <name>var_Record</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
+    <variables>
+        <name>var_RtDevName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>var_RtDevNamesList</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>var_RtId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

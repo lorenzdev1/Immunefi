@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <description>Creates a new oppty for those that are in the &quot;nurturing queue&quot; after 90 days of being closed lost</description>
+    <environments>Default</environments>
+    <interviewLabel>Create Nurturing Opportunity {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Immunefi: Create Nurturing Opportunity</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>853</locationX>
+        <locationY>49</locationY>
+        <connector>
+            <targetReference>IMM_SF_NewFromOld</targetReference>
+        </connector>
+        <filterLogic>1 AND 2 AND ( 3 OR 4 )AND 5</filterLogic>
+        <filters>
+            <field>StageName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Closed Lost</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>IMM_FF_NumberofDaysSinceClose__c</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <numberValue>90.0</numberValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Loss_Reason__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Interested within 6 months</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Loss_Reason__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Set aside for nurture</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>IMM_CB_InNurture__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2023-09-14</startDate>
+            <startTime>07:00:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>IMM_SF_NewFromOld</name>
+        <label>IMM_SF_NewFromOld</label>
+        <locationX>902</locationX>
+        <locationY>420</locationY>
+        <flowName>IMM_FL_ImmunefiNewOppBasedonOld</flowName>
+        <inputAssignments>
+            <name>resourceId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <variables>
+        <name>IMM_VR_IncomingOpportunity</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
+</Flow>
